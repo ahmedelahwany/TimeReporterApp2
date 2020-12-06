@@ -1,142 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!---->
+    <!-- main css and favicon -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <!-- google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Courgette"
+      rel="stylesheet"
+    />
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<!-- bootstrap css -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!---->
-	<!-- main css -->
-	<link rel="stylesheet" href="css/main.css">
-	<!-- google fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"
+    />
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
-	<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <!-- font awesome -->
+    <link rel="stylesheet" href="css/all.css" />
+    <title>Time Reporting</title>
+    <style></style>
+  </head>
 
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h3 class="text-center my-4">Jira Time Reporting</h3>
+          <div class="form-container">
+            <form id="searchForm" class="my-4">
+              <!-- form group -->
+              <div class="form-group my-3">
+                <label for="User">User :</label>
+                <select
+                  class="custom-select text-capitalize"
+                  id="User"
+                ></select>
+                <label for="Project">Project :</label>
+                <select
+                  class="custom-select text-capitalize"
+                  id="Project"
+                ></select>
+                <label for="Type">Type :</label>
+                <select
+                  class="custom-select text-capitalize"
+                  id="Type"
+                ></select>
+                <label for="Status">Status :</label>
+                <select
+                  class="custom-select text-capitalize"
+                  id="Status"
+                ></select>
 
-	<!-- font awesome -->
-	<link rel="stylesheet" href="css/all.css">
-	<title>Time Reporting</title>
-	<style>
-	</style>
-</head>
+                <label id="Date">Date Picker :</label>
 
-<body>
+                <input
+                  class="my-3 w-99"
+                  id="datarange"
+                  type="text"
+                  name="daterange"
+                  value="01/01/2018-01/15/2018"
+                />
+              </div>
 
+              <div class="row">
+                <div class="mx-auto">
+                  <button
+                    id="CreateReport"
+                    type="button"
+                    class="btn redBtn text-capitalize px-auto"
+                  >
+                    Create Report
+                  </button>
+                  <a
+                    id="export"
+                    type="button"
+                    class="btn redBtn text-capitalize px-auto"
+                    >Export</a
+                  >
+                </div>
+              </div>
+            </form>
+          </div>
+          <img src="img/loader.gif" class="loader" alt="" />
 
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<h3 class="text-center my-4"> Jira Time Reporting</h3>
-				<form id="searchForm" class="my-4">
-					<!-- form group -->
-					<div class="form-group my-3">
-						<label for="User">User :</label>
-						<select class="custom-select text-capitalize" id="User">
-						</select>
-						<label for="Project">Project :</label>
-						<select class="custom-select text-capitalize" id="Project">
-						</select>
-						<label for="Type">Type :</label>
-						<select class="custom-select text-capitalize" id="Type">
+          <label for="AggregationField" class="my-3 my-h"
+            >Aggregation Field :</label
+          >
+          <select class="custom-select text-capitalize" id="AggregationField">
+            <option value="1">Issue</option>
+            <option value="0">Project</option>
 
-						</select>
-						<label for="Status">Status :</label>
-						<select class="custom-select text-capitalize" id="Status">
-						</select>
+            <option value="2">User</option>
+            <option value="3">Version</option>
+            <option value="4">Component</option>
+          </select>
+          <label class="my-3 my-h">Grand total logged:</label>
+          <label id="totalTime" class="my-3">dd</label>
 
-						<label id="Date">Date Picker :</label>
+          <div class="feedback alert alert-danger text-center text-capitalize">
+            please choose values
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Data table section -->
+    <section class="py-4">
+      <div class="container">
+        <div class="row" id="datatable">
+          <table
+            id="example"
+            class="mx-auto px-auto table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead id="thead">
+              <tr>
+                <td>Issue Key</td>
+                <td>Issue Summary</td>
+                <td>Issue Status</td>
+                <td>Assignee</td>
+                <td>Estimated</td>
+                <td>Remaining</td>
+                <td>Logged</td>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+            <tfoot></tfoot>
+          </table>
+        </div>
+      </div>
+    </section>
 
-						<input class="my-3 w-99" id="datarange" type="text" name="daterange" value="01/01/2018-01/15/2018" />
+    <script src="js/jquery-3.3.1.min.js"></script>
 
-					</div>
+    <!-- bootstrap js -->
+    <!-- <script src="js/bootstrap.bundle.min.js"></script>-->
+    <!-- script js -->
+    <script src="bundle.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"
+    ></script>
 
-					<div class="row">
-						<div class="mx-auto">
-							<button id="CreateReport" type="button" class="btn redBtn text-capitalize px-auto">Create Report</button>
-						    <a id="export" type="button" class="btn redBtn text-capitalize px-auto">Export</a>
-
-						</div>
-					</div>
-
-				</form>
-
-				<img src="img/loader.gif" class="loader" alt="">
-
-				<label for="AggregationField" class="my-3">Aggregation Field :</label>
-				<select class="custom-select text-capitalize " id="AggregationField">
-					<option value="1">Issue</option>
-					<option value="0" >Project</option>
-					
-					<option value="2">User</option>
-					<option value="3">Version</option>
-					<option value="4">Component</option>
-				</select>
-				<label class="my-3">Grand total logged:</label>
-                <label id="totalTime" class="my-3">dd</label>
-                
-                				<div class="feedback alert alert-danger text-center text-capitalize">please choose values</div>
-
-
-			</div>
-		</div>
-	</div>
-	<!-- Data table section -->
-	<section class="py-4">
-		<div class="container">
-			<div class="row" id="datatable">
-				<table id="example" class=" mx-auto px-auto table table-striped table-bordered" style="width:100%">
-					<thead id="thead">
-						<tr>
-							<td>Issue Key</td>
-							<td>Issue Summary</td>
-							<td>Issue Status</td>
-							<td>Assignee</td>
-							<td>Estimated</td>
-							<td>Remaining</td>
-							<td>Logged</td>
-						</tr>
-					</thead>
-					<tbody id="tbody">
-
-					</tbody>
-					<tfoot>
-
-					</tfoot>
-				</table>
-
-			</div>
-		</div>
-
-	</section>
-
-
-
-	<script src="js/jquery-3.3.1.min.js"></script>
-
-
-
-	<!-- bootstrap js -->
-	<!-- <script src="js/bootstrap.bundle.min.js"></script>-->
-	<!-- script js -->
-	<script src="bundle.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-	
-
-
-	
-	<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-</body>
-
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

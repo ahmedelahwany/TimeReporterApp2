@@ -4,23 +4,68 @@
   --mainRed: #c92332;
 }
 body {
-  background: var(--mainWhite);
+  background: #ffb341;
   color: var(--mainDark);
+}
+h3 {
+  font-family: "Courier New", Courier, monospace;
+  color: #fff;
+  font-weight: bold;
+  font-size: 40px;
+}
+.form-container {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 12px 14px 5px -4px rgba(0, 0, 0, 0.19);
+}
+.form-container form label {
+  display: inline-block;
+  line-height: 110px;
+}
+.form-container form select {
+  width: 44%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+  border: none;
+}
+.form-container form input {
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 0 10px 10px;
 }
 .redBtn {
-  border-color: var(--mainRed);
-  color: var(--mainRed);
+  border-color: #00aeef;
+  color: #00aeef;
   background: transparent;
 }
-.redText {
-  color: var(--mainRed);
+#export {
+  color: #00aeef;
 }
-.redBtn:hover {
-  background: var(--mainRed);
-  color: var(--mainDark);
+.redText {
+  color: #00aeef;
+}
+.redBtn:hover,
+#export:hover {
+  background: #ffb341;
+  color: #fff;
+  border-color: #ffb341;
+  width: 160px;
+  transition: 0.3s all ease-in-out;
 }
 .form-control {
   border-color: var(--mainRed);
+}
+.my-h {
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  color: #fff;
+  font-weight: bold;
+}
+.custom-select {
+  border: none;
 }
 .feedback {
   display: none;
