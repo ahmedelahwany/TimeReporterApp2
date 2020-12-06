@@ -1,6 +1,6 @@
 
 
-// This is the first Block of the code ; it is responsible for connecting to the API  
+// This is the first Block of thit is responsible for connecting to the API  
 class TimeReporter {
 	constructor() {
 		this.jira = null;
