@@ -60,6 +60,8 @@
       .endDate.format("YYYY-MM-DD");
     // searching Jira Depending on the values selected by the user in the UI
     TimeReporting.SearchJira(
+      parseInt(aggerationFielMenu.value),
+      parseInt(UserValue.value),
       parseInt(ProjectValue.value),
       parseInt(StatusValue.value),
       parseInt(TypeValue.value),
@@ -68,9 +70,10 @@
     )
       .then((data) => {
         document.getElementById("tbody").innerHTML = " ";
+        document.getElementById("tfoot").innerHTML = " ";
+        ui.hideLoader();
         ui.showTableData(
-          UserValue.value,
-          parseInt(aggerationFielMenu.value), // displaying retrieved issues in the table
+          // displaying retrieved issues in the table
           data.JiraIssues
         );
       })

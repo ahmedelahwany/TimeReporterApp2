@@ -11,7 +11,9 @@ module.exports = class TimeReporter {
     var JiraClient = require("jira-connector");
 
     this.jira = new JiraClient({
-      host: "cors-anywhere.herokuapp.com", // proxy to pypass cors middleware becasue it is not possible to connect directly to another webiste that is not from the same origin
+      host: "127.0.0.1",
+      port: 5000,
+      protocol: "http", // proxy to pypass cors middleware becasue it is not possible to connect directly to another webiste that is not from the same origin
       path_prefix: "https://teamfalcon.atlassian.net/",
       strictSSL: false,
       basic_auth: {
@@ -61,17 +63,44 @@ module.exports = class TimeReporter {
 
   // This async function is used to search issue In the Jira website bases on the chosed values  In the UI
   // the usual node-fetch method is being used here because Jira-connecter was't working when trying to search for Issues
-  async SearchJira(project, status, type, startDate, endDate) {
+  async SearchJira(
+    aggregationField,
+    user,
+    project,
+    status,
+    type,
+    startDate,
+    endDate
+  ) {
+    let assigneeQuery = "";
+
+    /*                 these  if-else blocks simply aggregate the time logged of issues
+                       if users chosen as an aggregation field , the User drop menu wil be checked 
+                       if none is chosen , then the logged time of the issues which don't have an assingee will be aggregated
+                       if  All is chosen from the user drop menu , then the time logged of only the issues which have an assignee will be aggregated
+                       if a specific user is chosen , then then the time logged of only the issues which have an assignee equals to the chosed user will be aggregated
+                    */
+    if (aggregationField == 2) {
+      if (user === 0) {
+        assigneeQuery = " assignee is EMPTY AND"; // 0( value of the DOM element (option)) means -ALL- is chosen from the users drop menu
+      } else if (user === 2) {
+        // 2 ( value of the DOM element (option)) means -ALL- is chosen from the users drop menu
+        assigneeQuery = " assignee is not EMPTY AND";
+      } else {
+        console.log("there is a user chosen");
+        assigneeQuery = `assignee = ${user} AND `;
+      }
+    }
     let statusQuery = status == 0 ? " " : `status = ${status} AND  `; // status =0 or type = 0 means that the user has chosen All option on the drop menus of the UI ; which means the JQL query won't have the status or type fields
     let typeQuery = type == 0 ? " " : `type = ${type} AND  `;
 
     let encodeCreds = btoa("hammoudkhalaf7@gmail.com:Ups9dGVIAQnDVs3NTU2S74F9"); // encoding the email and the api_token to attch them in the GET request
     const fetch = require("node-fetch");
-    let encodeuri = encodeURI(`https://cors-anywhere.herokuapp.com/https://teamfalcon.atlassian.net/rest/api/2/search?jql= 
-                              project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`); // 
+    let encodeuri = encodeURI(`http://127.0.0.1:5000/https://teamfalcon.atlassian.net/rest/api/2/search?jql= ${assigneeQuery}
+                              project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`); //
 
     console.log(
-      `project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`
+      ` ${assigneeQuery} project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`
     );
     try {
       var JiraIssuesInfo = await fetch(encodeuri, {

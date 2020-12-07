@@ -19,6 +19,9 @@ module.exports = class UI {
         }
       );
     });
+    $(document).ready(function () {
+      $("#example").DataTable(); // preparting the table for the data
+    });
   }
   // this function is used to add the data retrieved from the API  to drop menus( HTML select elements) ( Status, Project,Type),
   addSelecttOptions(options, Component) {
@@ -69,11 +72,13 @@ module.exports = class UI {
     This function always displays the whole issues in the Jira depending on the project , Type and statuse filters , no matter what is the aggregation field or the user drop menu contains
     
   */
-  showTableData(user, aggregationField, issues) {
+  showTableData(issues) {
+    document.getElementById("tbody").innerHTML = " ";
+    document.getElementById("tfoot").innerHTML = " ";
     this.hideLoader();
     var timeLoggedin = 0;
     if (issues.length === 0) {
-      // no issues found fo the selected options
+      // no issues found for the selected options
       this.showFeedback(
         "no issues found. please, try to choose different options"
       );
@@ -105,45 +110,14 @@ module.exports = class UI {
                      <td>${logged}</td>
                     `;
 
-        /*these nested if-else blocks simply aggregate the time logged of issues
-                       if users chosen as an aggregation field , the User drop menu wil be checked 
-                       if none is chosen , then the logged time of the issues which don't have an assingee will be aggregated
-                       if  All is chosen from the user drop menu , then the time logged of only the issues which have an assignee will be aggregated
-                       if a specific user is chosen , then then the time logged of only the issues which have an assignee equals to the chosed user will be aggregated
-                    */
-        if (aggregationField === 2) {
-          if (issues[i].fields.assignee === null) {
-            if (user === "0") {
-              timeLoggedin += issues[i].fields.aggregateprogress.progress;
-              console.log("user is 0");
-            }
-          } else {
-            if (user === issues[i].fields.assignee.accountId) {
-              console.log("there is user chosen");
+        timeLoggedin += issues[i].fields.aggregateprogress.progress;
 
-              timeLoggedin += issues[i].fields.aggregateprogress.progress;
-            } else if (user === "2") {
-              // 2 ( value of the DOM element (option)) means -ALL- is chosen from the users drop menu
-              console.log("all users");
-
-              timeLoggedin += issues[i].fields.aggregateprogress.progress;
-            } else {
-              console.log("there is a user chosen , but not this user");
-            }
-          }
-        } else {
-          timeLoggedin += issues[i].fields.aggregateprogress.progress;
-        }
         document.getElementById("tbody").appendChild(row);
       }
     }
     document.getElementById("totalTime").textContent = this.formatDuration(
       timeLoggedin // coverting time to be displayed in a a form of days , hours , minutes and seconds
     );
-
-    $(document).ready(function () {
-      $("#example").DataTable(); // preparting the table for the data
-    });
   }
   // this function show a a feedback In the UI in a form of a DOM element
   // It is used to make a bit of interaction with the user
