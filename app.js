@@ -24,9 +24,20 @@
 
   // add The options ( retireved data) to the select menus
   document.addEventListener("DOMContentLoaded", () => {
-    TimeReporting.getDropMenusDATA().then((data) => {
-      ui.addSelecttOptions(data.JiraProjects, "Project");
-    });
+    ui.showFeedback(
+      "please, wait few moments until the drop menus's data is loaded form the API"
+    );
+    TimeReporting.getDropMenusDATA()
+      .then((data) => {
+        ui.addSelecttOptions(data.JiraProjects, "Project");
+      })
+      .catch(function (error) {
+        console.log("Promise catch: " + error);
+        ui.showFeedback(
+          "Faild to connect to the API and getting your data . Please, reload the page"
+        );
+      });
+
     TimeReporting.getDropMenusDATA().then((data) => {
       ui.addUserOptions(data.JiraUsers);
     });
@@ -54,14 +65,22 @@
       parseInt(TypeValue.value),
       startDate,
       endDate
-    ).then((data) => {
-      document.getElementById("tbody").innerHTML = " ";
-      ui.showTableData(
-        UserValue.value,
-        parseInt(aggerationFielMenu.value), // displaying retrieved issues in the table
-        data.JiraIssues
-      );
-    });
+    )
+      .then((data) => {
+        document.getElementById("tbody").innerHTML = " ";
+        ui.showTableData(
+          UserValue.value,
+          parseInt(aggerationFielMenu.value), // displaying retrieved issues in the table
+          data.JiraIssues
+        );
+      })
+      .catch(function (error) {
+        console.log("Promise catch: " + error);
+        ui.hideLoader();
+        ui.showFeedback(
+          "Faild to connect to the API and getting your data . Please, try again"
+        );
+      });
   }
 
   createReportBtn.addEventListener("click", () => {
