@@ -68,7 +68,7 @@ module.exports = class TimeReporter {
     let encodeCreds = btoa("hammoudkhalaf7@gmail.com:Ups9dGVIAQnDVs3NTU2S74F9"); // encoding the email and the api_token to attch them in the GET request
     const fetch = require("node-fetch");
     let encodeuri = encodeURI(`https://cors-anywhere.herokuapp.com/https://teamfalcon.atlassian.net/rest/api/2/search?jql= 
-                              project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`);
+                              project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`); // 
 
     console.log(
       `project = ${project} AND ${typeQuery} ${statusQuery}  created >= ${startDate} AND created <= ${endDate}`

@@ -154,7 +154,7 @@ module.exports = class UI {
 
     setTimeout(() => {
       feedback.classList.remove("showItem");
-    }, 5000);
+    }, 6000);
   }
 
   // a loader image (gif media type) that will be diplayed while the app making a GET request to get the data and will be hidden once the data is retireved

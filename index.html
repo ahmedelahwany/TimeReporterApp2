@@ -7,9 +7,8 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!---->
-    <!-- main css and favicon -->
+    <!-- main css -->
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="icon" type="image/png" href="img/favicon.png" />
     <!-- google fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Courgette"
@@ -26,7 +25,12 @@
       type="text/css"
       href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"
     />
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <!-- <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    /> -->
 
     <!-- font awesome -->
     <link rel="stylesheet" href="css/all.css" />
@@ -74,6 +78,9 @@
                   value="01/01/2018-01/15/2018"
                 />
               </div>
+              <div
+                class="feedback alert alert-danger text-center text-capitalize"
+              ></div>
 
               <div class="row">
                 <div class="mx-auto">
@@ -108,11 +115,7 @@
             <option value="4">Component</option>
           </select>
           <label class="my-3 my-h">Grand total logged:</label>
-          <label id="totalTime" class="my-3">dd</label>
-
-          <div class="feedback alert alert-danger text-center text-capitalize">
-            please choose values
-          </div>
+          <label id="totalTime" class="my-3 my-h"></label>
         </div>
       </div>
     </div>
@@ -146,7 +149,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
 
     <!-- bootstrap js -->
-    <!-- <script src="js/bootstrap.bundle.min.js"></script>-->
+    <!--	 <script src="js/bootstrap.bundle.min.js"></script>-->
     <!-- script js -->
     <script src="bundle.js"></script>
     <script
@@ -166,7 +169,7 @@
       src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"
     ></script>
 
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <!--	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
