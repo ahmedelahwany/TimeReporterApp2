@@ -18,9 +18,6 @@ npm install
 npm run build
 ```
 
-```bash
-node js/ProxyOnlocalHost.js
-```
 
 ## Contributing
 
