@@ -4,22 +4,30 @@ In Jira cloud there are very limited possibilities to track the invested time of
 
 ## Installation
 
-Use the package manager [npm](https://nodejs.org/en/) to install The TimeReporter app.
- Before opening the index.html file to run the site , please run these two commands in the app directory to install the packages required for the app and build the application . Then, everything is fine
+Use the package manager [npm](https://www.npmjs.com/) and [node js](https://nodejs.org/en/) to install
+The TimeReporter app.
+Before opening the index.html file to run the site , please run these three commands in the app directory to install the packages required for the app and build the application . Then, everything is fine.
+
+IT IS EXTREMELY PREFERRED TO RUN THE index.html In ON LOCALHOST PORT 8080
 
 ```bash
-npm install 
+npm install
 ```
+
 ```bash
 npm run build
 ```
 
-
+```bash
+node js/ProxyOnlocalHost.js
+```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
