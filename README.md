@@ -4,21 +4,21 @@ In Jira cloud there are very limited possibilities to track the invested time of
 
 ## Installation
 
-the package manager [npm](https://www.npmjs.com/) and [node js](https://nodejs.org/en/) have to be usef to install The TimeReporter app.
+The package manager [npm](https://www.npmjs.com/) and [node js](https://nodejs.org/en/) have to be usef to install The TimeReporter app.
 Before opening the index.html file to run the site , It is a must to run these three commands in the app directory to install the packages required for the app and build the application . Then, everything is fine.
 
-The first command is for installing the dependecies required for the application.
-The second command is for building the application and creating bundle.js file.
-The third command is for listening on host 127.0.0.1 and port 5000 and running cors-anywhere (proxy) which is responsible for creating headers in the requests between two servers that don't have the same origin ; this allows limitless requests to the API by the end-user.
 
+
+The first command is for installing the dependecies required for the application.
 ```bash
 npm install
 ```
 
+The second command is for building the application and creating bundle.js file.
 ```bash
 npm run build
 ```
-
+The third command is for listening on host 127.0.0.1 and port 5000 and running cors-anywhere (proxy) which is responsible for creating headers in the requests between two servers that don't have the same origin ; this allows limitless requests to the API by the end-user.
 ```bash
 node js/ProxyOnlocalHost.js
 ```
