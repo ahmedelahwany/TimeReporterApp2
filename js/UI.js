@@ -19,9 +19,6 @@ module.exports = class UI {
         }
       );
     });
-    $(document).ready(function () {
-      $("#example").DataTable(); // preparting the table for the data
-    });
   }
   // this function is used to add the data retrieved from the API  to drop menus( HTML select elements) ( Status, Project,Type),
   addSelecttOptions(options, Component) {
@@ -38,7 +35,7 @@ module.exports = class UI {
   addUserOptions(options) {
     const user = document.getElementById("User");
     let output =
-      "<option value='0' selected>none</option> <option value='2' selected>All</option>";
+      "<option value='none' selected>none</option> <option value='All' selected>All</option>";
     options.forEach((option) => {
       output += `<option value ="${option.accountId}">${option.displayName}</option>`;
     });
@@ -73,8 +70,9 @@ module.exports = class UI {
     
   */
   showTableData(issues) {
-    document.getElementById("tbody").innerHTML = " ";
-    document.getElementById("tfoot").innerHTML = " ";
+    $("#tbody").empty();
+    $("#tfoot").empty();
+
     this.hideLoader();
     var timeLoggedin = 0;
     if (issues.length === 0) {

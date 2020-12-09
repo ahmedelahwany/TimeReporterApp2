@@ -61,7 +61,7 @@
     // searching Jira Depending on the values selected by the user in the UI
     TimeReporting.SearchJira(
       parseInt(aggerationFielMenu.value),
-      parseInt(UserValue.value),
+      UserValue.value,
       parseInt(ProjectValue.value),
       parseInt(StatusValue.value),
       parseInt(TypeValue.value),
@@ -69,8 +69,8 @@
       endDate
     )
       .then((data) => {
-        document.getElementById("tbody").innerHTML = " ";
-        document.getElementById("tfoot").innerHTML = " ";
+        $("#tbody").empty();
+        $("#tfoot").empty();
         ui.hideLoader();
         ui.showTableData(
           // displaying retrieved issues in the table
@@ -114,5 +114,9 @@
     } else {
       ui.showFeedback("sorry, It is not implemented yet"); // only (Users , issues ) aggregation fields are implemented , the rest will be implemented in next versions
     }
+  });
+
+  $(document).ready(function () {
+    $("#example").DataTable(); // preparting the table for the data
   });
 })();

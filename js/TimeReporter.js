@@ -81,9 +81,9 @@ module.exports = class TimeReporter {
                        if a specific user is chosen , then then the time logged of only the issues which have an assignee equals to the chosed user will be aggregated
                     */
     if (aggregationField == 2) {
-      if (user === 0) {
+      if (user === "none") {
         assigneeQuery = " assignee is EMPTY AND"; // 0( value of the DOM element (option)) means -ALL- is chosen from the users drop menu
-      } else if (user === 2) {
+      } else if (user === "All") {
         // 2 ( value of the DOM element (option)) means -ALL- is chosen from the users drop menu
         assigneeQuery = " assignee is not EMPTY AND";
       } else {
